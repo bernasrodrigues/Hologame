@@ -4,59 +4,50 @@ using UnityEngine;
 
 public class LightScript : MonoBehaviour
 {
-
-    public GameObject lightInterior;
-    public GameObject lightLamp;
-
-    private Material lightInteriorMaterial;
-    private Material lightLampMaterial;
-
-    public Color emissionColor;
-    public float emissionIntensity = 1.0f;
-
+    public bool isOn;
     public Light light;
+
+
+
+    public GameObject GlassExterior;
+    public Material onLampMaterial;
+    public Material offLampMaterial;
+    private Renderer LampRenderer;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        MeshRenderer renderer = lightInterior.GetComponent<MeshRenderer>();
-        lightInteriorMaterial = renderer.material;
-
-        renderer = lightLamp.GetComponent<MeshRenderer>();
-        lightLampMaterial = renderer.material;
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        LampRenderer = GlassExterior.GetComponent<Renderer>();
     }
 
 
     void TurnOn()
     {
-        light.intensity = 1.5f;
+        light.enabled = true;
 
-        Material onlightInteriorMaterial = lightInteriorMaterial;
-        Material onlightLampMaterial = lightLampMaterial;
-
-
-
-
-
+        LampRenderer.material = onLampMaterial;
+        isOn = true;
     }
 
 
     void TurnOff()
     {
-        light.intensity = 0f;
-
-
-
+        light.enabled = false;
+        LampRenderer.material = offLampMaterial;
+        isOn = false;
     }
 
+
+    public void button()
+    {
+        if (isOn)
+        {
+            TurnOff();
+        }
+        else TurnOn();
+    }
 
 
 }

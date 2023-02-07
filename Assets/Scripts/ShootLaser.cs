@@ -12,6 +12,11 @@ public class ShootLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (laserBeam != null)
+        {
+            Destroy(laserBeam.laserObj);
+        }
+
         if (!on)        // check if turned on
         {
             return;
@@ -19,12 +24,16 @@ public class ShootLaser : MonoBehaviour
 
 
 
-        if (laserBeam != null)
-        {
-            Destroy(laserBeam.laserObj);
-        }
         laserBeam = new LaserBeam(gameObject.transform.position, gameObject.transform.up, laserMaterial);
 
 
     }
+
+
+    public void button()
+    {
+        on = !on;
+    }
+
+
 }

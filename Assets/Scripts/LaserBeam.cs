@@ -29,6 +29,7 @@ public class LaserBeam
         this.laser.material = material;
         this.laser.startColor = Color.red;
         this.laser.endColor = Color.red;
+        this.laser.numCornerVertices = 6;
 
         CastRay(pos, dir, laser);
 
