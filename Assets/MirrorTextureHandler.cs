@@ -7,9 +7,20 @@ public class MirrorTextureHandler : MonoBehaviour
     public Camera mirrorCamera;
     public MeshRenderer meshRenderer;
 
+    public bool useReflection;
+
+
     // On start create a new render texture and apply it to the mirror materials
     void Start()
     {
+        if (!useReflection) {
+
+            mirrorCamera.gameObject.SetActive(false);
+
+            return;
+        }
+
+
         // Create a new render texture with the specified width and height
         RenderTexture renderTexture = new RenderTexture(512, 512, 24);
 
