@@ -1360,6 +1360,7 @@ GameObject:
   - component: {fileID: 268360233}
   - component: {fileID: 268360232}
   - component: {fileID: 268360231}
+  - component: {fileID: 268360234}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -1460,6 +1461,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &268360234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268360227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7566b73621eaa49ba12229a676a13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reflective: 0
+  refractionIndex: 1
 --- !u!1 &311486543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,6 +2254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434118259}
   - component: {fileID: 434118258}
+  - component: {fileID: 434118260}
   m_Layer: 0
   m_Name: World_Info
   m_TagString: Untagged
@@ -2277,6 +2293,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &434118260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434118257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a702b69fe730b794f93349fdf78044eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoalArray: []
+  AbuttonReference: {fileID: -3488730124541308429, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  debug: 1
 --- !u!1 &440318727
 GameObject:
   m_ObjectHideFlags: 0
@@ -3033,6 +3064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mirrorCamera: {fileID: 732114990}
   meshRenderer: {fileID: 561057944}
+  useReflection: 0
 --- !u!64 &561057943
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3474,7 +3506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 0
 --- !u!65 &631833385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3859,7 +3890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 1
 --- !u!65 &732895986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6055,7 +6085,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 1
   refractionIndex: 1
-  isGoal: 0
 --- !u!1 &1130423396
 GameObject:
   m_ObjectHideFlags: 0
@@ -6718,22 +6747,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1220446252049411117, guid: 0d8408a3892fbc64aac3e9076b244c9e, type: 3}
-      propertyPath: m_AdditionalLightsShadowResolutionTier
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1220446252049411118, guid: 0d8408a3892fbc64aac3e9076b244c9e, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1220446252049411118, guid: 0d8408a3892fbc64aac3e9076b244c9e, type: 3}
-      propertyPath: m_Shadows.m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1220446252049411118, guid: 0d8408a3892fbc64aac3e9076b244c9e, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 6985867761354055053, guid: 0d8408a3892fbc64aac3e9076b244c9e, type: 3}
       propertyPath: m_Name
       value: LightBulb
@@ -8849,7 +8862,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 1
   refractionIndex: 1
-  isGoal: 0
 --- !u!65 &1465544148
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9636,6 +9648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mirrorCamera: {fileID: 0}
   meshRenderer: {fileID: 0}
+  useReflection: 0
 --- !u!1001 &1562905422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9919,7 +9932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1656035183
 Transform:
   m_ObjectHideFlags: 0
@@ -10767,7 +10780,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 2
   refractionIndex: 1.5
-  isGoal: 0
 --- !u!65 &1875497117
 BoxCollider:
   m_ObjectHideFlags: 0

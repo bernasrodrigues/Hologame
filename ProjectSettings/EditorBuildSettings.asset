@@ -5,12 +5,30 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 5cf378b572468fd49a5f50db61b687b3
+  - enabled: 1
+    path: Assets/Scenes/Light Reflection.unity
+    guid: 523e7eff49ab699488e9229095c8ba42
+  - enabled: 1
+    path: Assets/Scenes/Ex1.unity
+    guid: f6095e5fb6d762242ac217f797c3d89f
+  - enabled: 1
+    path: Assets/Scenes/Ex2.unity
+    guid: c9061b716940e0646a98e854879196ac
+  - enabled: 1
+    path: Assets/Scenes/Ex3.unity
+    guid: f080bdbe475c3bc469687320a3821ee9
+  - enabled: 1
+    path: Assets/Scenes/Difraction.unity
+    guid: df5735756e121174bb3cdf01b3e6116a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2ed4136a1fc8c784bbd1755f79006412, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 18f70377a47886945acc35423abfb735, type: 2}

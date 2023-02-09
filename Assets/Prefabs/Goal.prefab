@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3014959390175425379}
   - component: {fileID: 3014959390175425380}
   - component: {fileID: 3014959390175425381}
-  - component: {fileID: 3014959390175425382}
   - component: {fileID: 732895990}
+  - component: {fileID: 732895991}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -99,21 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3014959390175425382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3014959390175425383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7566b73621eaa49ba12229a676a13b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reflective: 0
-  refractionIndex: 1
-  isGoal: 1
 --- !u!54 &732895990
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,3 +115,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &732895991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3014959390175425383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f2abd6ffbfd9a47aa473427ecb153c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reflective: 0
+  refractionIndex: 1
+  isTouching: 0
+  timeOut: 0.3
+  timeOutCount: 0
+  timeTillFull: 3
+  timeCount: 0

@@ -2313,6 +2313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434118259}
   - component: {fileID: 434118258}
+  - component: {fileID: 434118260}
   m_Layer: 0
   m_Name: World_Info
   m_TagString: Untagged
@@ -2351,6 +2352,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &434118260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434118257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a702b69fe730b794f93349fdf78044eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoalArray: []
+  AbuttonReference: {fileID: -3488730124541308429, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  debug: 1
 --- !u!1 &440318727
 GameObject:
   m_ObjectHideFlags: 0
@@ -3090,7 +3106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 0
 --- !u!65 &546186741
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3640,7 +3655,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 0
 --- !u!65 &631833385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4179,7 +4193,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 1
 --- !u!65 &732895986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6375,7 +6388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 1
   refractionIndex: 1
-  isGoal: 0
 --- !u!1 &1130423396
 GameObject:
   m_ObjectHideFlags: 0
@@ -9174,7 +9186,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 1
   refractionIndex: 1
-  isGoal: 0
 --- !u!65 &1465544148
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9350,7 +9361,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 0
 --- !u!1 &1477728778
 GameObject:
   m_ObjectHideFlags: 0
@@ -9783,7 +9793,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 0
 --- !u!64 &1519320475
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10196,7 +10205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1656035183
 Transform:
   m_ObjectHideFlags: 0
@@ -11004,7 +11013,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 2
   refractionIndex: 1.5
-  isGoal: 0
 --- !u!65 &1875497117
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22492,7 +22500,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflective: 0
   refractionIndex: 1
-  isGoal: 0
 --- !u!65 &6174472396593295287
 BoxCollider:
   m_ObjectHideFlags: 0

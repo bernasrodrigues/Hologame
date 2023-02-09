@@ -6,8 +6,14 @@ public class BaseObject : MonoBehaviour
 {
     public ReflectiveType reflective = ReflectiveType.nonReflective;
     public float refractionIndex = 1;
-    public bool isGoal = false;
 
+
+
+
+    public virtual void HandleTouchLaser()
+    {
+
+    }
 
 
 }

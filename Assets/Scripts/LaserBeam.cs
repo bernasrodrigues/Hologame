@@ -88,10 +88,7 @@ public class LaserBeam
         BaseObject obj = hitInfo.collider.transform.GetComponent(typeof(BaseObject)) as BaseObject;       // Check if it hit a material that it can interact with
         if (obj != null)
         {
-            if (obj.isGoal)
-            {
-                Debug.Log("Goal");
-            }
+            obj.HandleTouchLaser();
 
 
 
