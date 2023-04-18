@@ -17,7 +17,7 @@ public class ShootLaser : MonoBehaviour
             Destroy(laserBeam.laserObj);
         }
 
-        if (!on)        // check if turned on
+        if (!on)        // check if turned on, if not on ignore
         {
             return;
         }
@@ -35,5 +35,9 @@ public class ShootLaser : MonoBehaviour
         on = !on;
     }
 
+    public void setLaser(LaserBeam laserBeam)
+    {
+        this.laserBeam = laserBeam;
 
+    }
 }

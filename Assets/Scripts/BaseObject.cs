@@ -10,7 +10,7 @@ public class BaseObject : MonoBehaviour
 
 
 
-    public virtual void HandleTouchLaser()
+    public virtual void HandleTouchLaser(LaserBeam laserBeam)
     {
 
     }

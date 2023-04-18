@@ -88,10 +88,6 @@ public class LaserBeam
         BaseObject obj = hitInfo.collider.transform.GetComponent(typeof(BaseObject)) as BaseObject;       // Check if it hit a material that it can interact with
         if (obj != null)
         {
-            obj.HandleTouchLaser();
-
-
-
             if (obj.reflective == ReflectiveType.Reflective)    // Check material types
             {
                 Vector3 pos = hitInfo.point;
@@ -141,11 +137,17 @@ public class LaserBeam
 
 
 
-            else if (obj.reflective == ReflectiveType.nonReflective)
+            else if (obj.reflective == ReflectiveType.nonReflective)        // For special objects (beam expader, splitter ...)
             {
                 laserIndices.Add(hitInfo.point);
+                obj.HandleTouchLaser(this);
                 UpdateLaser();
             }
+        }
+        else
+        {
+            laserIndices.Add(hitInfo.point);
+            UpdateLaser();
         }
     }
 

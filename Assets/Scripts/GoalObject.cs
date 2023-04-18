@@ -11,7 +11,7 @@ public class GoalObject : BaseObject
     public float timeTillFull = 3f;
     public float timeCount;
 
-    public override void HandleTouchLaser()
+    public override void HandleTouchLaser(LaserBeam laserBeam)
     {
         isTouching = true;
     }
