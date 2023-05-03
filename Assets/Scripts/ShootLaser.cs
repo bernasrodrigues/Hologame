@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class ShootLaser : MonoBehaviour
 {
-
     public Material laserMaterial;
     public bool on;
-    LaserBeam laserBeam;
+    protected LaserBeam laserBeam;
 
     // Update is called once per frame
     void Update()
@@ -21,8 +22,6 @@ public class ShootLaser : MonoBehaviour
         {
             return;
         }
-
-
 
         laserBeam = new LaserBeam(gameObject.transform.position, gameObject.transform.up, laserMaterial);
 
