@@ -21,6 +21,7 @@ public class PinholeObject : BaseObject
     public override void HandleTouchLaser(LaserBeam incomingLaserBeam)
     {
         isOn = true;
+        PinholeExit.referenceLaser = incomingLaserBeam.DeepClone();
 
     }
 

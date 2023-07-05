@@ -35,7 +35,6 @@ public class ButtonPressHandler : MonoBehaviour
 
     private void Update()
     {
-        print("AAA");
         if (areControllersInside)
         {
             if (!isCharging)

@@ -20,7 +20,7 @@ public class ShootLaserExpander : ShootLaser
             return;
         }
 
-        laserBeam = new LaserBeam(gameObject.transform.position, gameObject.transform.up, laserMaterial,ln,  maxLenght : 2);
+        //laserBeam = new LaserBeam(gameObject.transform.position, gameObject.transform.up, laserMaterial,ln,  maxLenght : 2);
 
 
     }

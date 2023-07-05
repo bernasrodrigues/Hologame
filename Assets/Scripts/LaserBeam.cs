@@ -1,246 +1,68 @@
-/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LaserBeam
 {
-    Vector3 pos, dir;
-    public GameObject laserObj;
-    LineRenderer laser;
-    List<Vector3> laserIndices = new List<Vector3>();
-    
 
-    public LaserBeam(Vector3 pos, Vector3 dir, Material material)
-    {
-        this.laser = new LineRenderer();
-        this.laserObj = new GameObject
-        {
-            name = "Laser Beam"
-        };
-
-
-        this.pos = pos;
-        this.dir = dir;
-
-        // line renderer atributes
-        this.laser = this.laserObj.AddComponent(typeof(LineRenderer)) as LineRenderer;
-        this.laser.startWidth = 0.1f;
-        this.laser.endWidth = 0.1f;
-        this.laser.material = material;
-        this.laser.startColor = Color.red;
-        this.laser.endColor = Color.red;
-        this.laser.numCornerVertices = 6;
-
-        CastRay(pos, dir, laser);
-
-    }
-
-
-
-
-    void CastRay(Vector3 pos, Vector3 dir, LineRenderer laser)
-    {
-        laserIndices.Add(pos);
-
-
-        Ray ray = new Ray(pos, dir);
-        RaycastHit hit;
-
-
-        if (Physics.Raycast(ray , out hit , 300 , 1))       // get laser hit
-        {
-
-            CheckHit(hit, dir, laser);
-        }
-        else
-        {
-            laserIndices.Add(ray.GetPoint(300));            // if no target hit, add point at the end of the laser
-            UpdateLaser();
-        }
-
-        UpdateLaser();
-
-    }
-
-
-    void UpdateLaser()
-    {
-        int count = 0;
-        laser.positionCount = laserIndices.Count;
-
-        foreach (Vector3 idx in laserIndices)
-        {
-            laser.SetPosition(count, idx);
-            count++;
-        }
-    }
-
-
-
-
-
-
-
-
-
-    void CheckHit(RaycastHit hitInfo , Vector3 direction , LineRenderer laser)
-    {
-        BaseObject obj = hitInfo.collider.transform.GetComponent(typeof(BaseObject)) as BaseObject;       // Check if it hit a material that it can interact with
-        if (obj != null)
-        {
-            if (obj.reflective == ReflectiveType.Reflective)    // Check material types
-            {
-                Vector3 pos = hitInfo.point;
-                Vector3 dir = Vector3.Reflect(direction, hitInfo.normal);       // calculate reflection angle
-
-                CastRay(pos, dir, laser);
-            }
-            else if (obj.reflective == ReflectiveType.Refractive)
-            {
-                Vector3 pos = hitInfo.point;
-                laserIndices.Add(pos);
-
-                Vector3 newPos1 = new Vector3(
-                    Mathf.Abs(direction.x) / (direction.x + 0.0001f) * 0.0001f + pos.x, 
-                    Mathf.Abs(direction.y) / (direction.y + 0.0001f) * 0.0001f + pos.y, 
-                    Mathf.Abs(direction.z) / (direction.z + 0.0001f) * 0.0001f + pos.z) ;       // Calculate new point close to hitpoint
-
-
-                // Get values for refraction
-                float material_1 = WorldInfo.Instance.refraction_index;
-                float material_2 = obj.refractionIndex;
-
-                Vector3 norm = hitInfo.normal;
-                Vector3 incident = direction;
-                Vector3 refractedVector = Refract(material_1 , material_2 , norm , incident);       // Calculate refracted vector
-
-
-                // Have to create new ray because they ray only collides with collider once (and wouldn't refract when leaving the object)
-                Ray ray1 = new Ray(newPos1, refractedVector);
-                Vector3 newRayStartPos = ray1.GetPoint(1.5f);
-
-
-                Ray ray2 = new Ray(newRayStartPos, -refractedVector);
-                RaycastHit hit2; 
-
-                if(Physics.Raycast(ray2 , out hit2 , 1.6f , 1))
-                {
-                    laserIndices.Add(hit2.point);
-                }
-
-                UpdateLaser();
-
-                Vector3 refractedVector2 = Refract(material_2, material_1, -hit2.normal, refractedVector);
-                CastRay(hit2.point,refractedVector2,laser);
-                //CastRay(newPos1, refractedVector, laser);
-            }
-
-
-
-            else if (obj.reflective == ReflectiveType.nonReflective)        // For special objects (beam expader, splitter ...)
-            {
-                laserIndices.Add(hitInfo.point);
-                obj.HandleTouchLaser(this);
-                UpdateLaser();
-            }
-        }
-        else
-        {
-            laserIndices.Add(hitInfo.point);
-            UpdateLaser();
-        }
-    }
-
-
-    // Snell's law  
-    Vector3 Refract (float material_1 , float material_2 , Vector3 normal , Vector3 incident)
-    {
-        incident.Normalize();
-        // normal is already normalized
-
-        Vector3 refractedVector = (
-            material_1 / material_2 * Vector3.Cross(normal, Vector3.Cross(-normal, incident)) 
-            - normal * Mathf.Sqrt(1 - Vector3.Dot(Vector3.Cross(normal, incident) 
-            * (material_1 / material_2 * material_1 / material_2), 
-            Vector3.Cross(normal, incident)))).normalized;
-
-        return refractedVector;
-    }
-}   
-*/
-
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class LaserBeam
-{
     private Vector3 pos;
     private Vector3 dir;
+
     public GameObject laserObj;
 
-
-
     private LineRenderer laser;
+    
     private List<Vector3> laserIndices = new List<Vector3>();
+    
     private int maxLenght = 100;
 
+    //Logger
+    [SerializeField] private bool loggerOn = false;
+    private Logger logger;
 
 
-    // TODO REMOVE THIS AND UPDATE TO NEW CONSTRUCTOR WITH MORE PARAMETERS
-    public LaserBeam(Vector3 pos, Vector3 dir, Material material)
+    public LaserBeam(LaserBeam referenceBeam)
     {
-        this.pos = pos;
-        this.dir = dir;
-
-        // Create Laser Beam object
         this.laserObj = new GameObject("Laser Beam");
         this.laser = this.laserObj.AddComponent<LineRenderer>();
 
-        // Set Line Renderer attributes
-        this.laser.startWidth = 0.1f;
-        this.laser.endWidth = 0.1f;
-        
-        this.laser.material = material;
-        this.laser.startColor = Color.red;
-        this.laser.endColor = Color.red;
-
-        this.laser.numCapVertices = 6;
-        this.laser.numCornerVertices = 6;
-
-        CastRay(pos, dir, laser);
+        CopyValues(referenceBeam);
     }
 
 
 
 
-    public LaserBeam(Vector3 pos, Vector3 dir, Material material, LineRenderer ln = null, int maxLenght = 100)
+
+    public LaserBeam(Vector3 pos, Vector3 dir, LaserBeam referenceBeam = null,  LineRenderer referenceLineRenderer = null ,   int maxLenght = 100)
     {
         this.pos = pos;
         this.dir = dir;
+
+
 
         // Create Laser Beam object
         this.laserObj = new GameObject("Laser Beam");
         this.laser = this.laserObj.AddComponent<LineRenderer>();
 
-        this.laser.material = material;
+        CopyValues(referenceBeam);
 
 
-
-        if (ln != null)
+        if (referenceLineRenderer != null)
         {
-            this.laser.startWidth = ln.startWidth;
-            this.laser.endWidth = ln.endWidth;
-            this.laser.widthCurve = ln.widthCurve;
+            this.laser.startWidth = referenceLineRenderer.startWidth;
+            this.laser.endWidth = referenceLineRenderer.endWidth;
+            this.laser.widthCurve = referenceLineRenderer.widthCurve;
 
-            this.laser.startColor = ln.startColor;
-            this.laser.endColor = ln.endColor;
+            this.laser.startColor = referenceLineRenderer.startColor;
+            this.laser.endColor = referenceLineRenderer.endColor;
 
+            this.laser.numCapVertices = referenceLineRenderer.numCapVertices;
+            this.laser.numCornerVertices = referenceLineRenderer.numCornerVertices;
 
-            this.laser.numCapVertices = ln.numCapVertices;
-            this.laser.numCornerVertices = ln.numCornerVertices;
+            this.laser.material = referenceLineRenderer.material;
+
+            this.laser.material.EnableKeyword("_EMISSION");
+            this.laser.material.SetColor("_EmissionColor", this.laser.startColor);
 
         }
         else
@@ -256,7 +78,12 @@ public class LaserBeam
             this.laser.numCapVertices = 6;
         }
 
-        this.maxLenght = maxLenght;
+
+        if (maxLenght > -1)
+        {
+            this.maxLenght = maxLenght;
+        }
+
 
 
         CastRay(pos, dir, laser);
@@ -267,8 +94,8 @@ public class LaserBeam
     private void CastRay(Vector3 pos, Vector3 dir, LineRenderer laser)
     {
 
-        if (laserIndices.Count < maxLenght)           // check if number of positions is lower than allowed number of positions
-        {
+        //if (laserIndices.Count < maxLenght)           // check if number of positions is lower than allowed number of positions
+        //{
             laserIndices.Add(pos);
 
             Ray ray = new Ray(pos, dir);
@@ -285,8 +112,29 @@ public class LaserBeam
             }
 
             UpdateLaser();
-        }
+        //}
     }
+
+
+
+
+
+    public void Update()
+    {
+        //CastRay(this.pos, this.dir, laser);
+
+
+
+    }
+
+    public void Clear()
+    {
+        laser.positionCount = 0;
+    }
+
+
+
+
 
 
 
@@ -389,5 +237,46 @@ public class LaserBeam
             // Return the incident direction as the refracted direction when total internal reflection occurs
             return incident.normalized;
         }
+    }
+
+
+
+    private void CopyValues(LaserBeam referenceLaserBeam)
+    {   if (referenceLaserBeam != null)
+        {
+            //this.laser = referenceLaserBeam.laser;
+
+            this.laser.startWidth = referenceLaserBeam.laser.startWidth;
+            this.laser.endWidth = referenceLaserBeam.laser.endWidth;
+            this.laser.widthCurve = referenceLaserBeam.laser.widthCurve;
+
+            this.laser.startColor = referenceLaserBeam.laser.startColor;
+            this.laser.endColor = referenceLaserBeam.laser.endColor;
+
+            this.laser.numCapVertices = referenceLaserBeam.laser.numCapVertices;
+            this.laser.numCornerVertices = referenceLaserBeam.laser.numCornerVertices;
+
+            this.laser.material = referenceLaserBeam.laser.material;
+
+            this.laser.material.EnableKeyword("_EMISSION");
+            this.laser.material.SetColor("_EmissionColor", this.laser.startColor);
+
+
+            this.laser.SetPositions(new Vector3[0]);        // clear indices of line renderer
+
+            this.maxLenght = referenceLaserBeam.maxLenght - referenceLaserBeam.laserIndices.Count;
+            //logger.Log("Copied values from: " + referenceLaserBeam);
+        }
+    }
+
+
+
+    public LaserBeam DeepClone()
+    {
+        LaserBeam newLaserBeam = new LaserBeam(this);
+        newLaserBeam.laserIndices = new List<Vector3>();
+
+
+        return newLaserBeam;
     }
 }

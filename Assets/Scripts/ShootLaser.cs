@@ -6,9 +6,16 @@ using UnityEngine;
 
 public class ShootLaser : MonoBehaviour
 {
-    public Material laserMaterial;
     public bool on;
-    protected LaserBeam laserBeam;
+    public LaserBeam laserBeam;
+
+    public LaserBeam referenceLaser;
+    public LineRenderer lineRenderer;
+    //laser Parameters
+
+    [SerializeField] private bool loggerOn = false;
+    private Logger logger;
+
 
     // Update is called once per frame
     void Update()
@@ -23,7 +30,10 @@ public class ShootLaser : MonoBehaviour
             return;
         }
 
-        laserBeam = new LaserBeam(gameObject.transform.position, gameObject.transform.up, laserMaterial);
+        laserBeam = new LaserBeam(gameObject.transform.position, gameObject.transform.up, 
+                                    referenceBeam: referenceLaser, 
+                                    referenceLineRenderer: lineRenderer,
+                                    maxLenght : 100);
 
 
     }
@@ -32,11 +42,5 @@ public class ShootLaser : MonoBehaviour
     public void button()
     {
         on = !on;
-    }
-
-    public void setLaser(LaserBeam laserBeam)
-    {
-        this.laserBeam = laserBeam;
-
     }
 }
